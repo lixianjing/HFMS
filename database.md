@@ -79,11 +79,18 @@ CREATE TABLE `category` (
 ###操作字段
 ####插入
 INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('1','1','limingfeng','123456','李明锋',0);
-INSERT INTO `user` (`id`,`group_id`,`account`,`pwd`,`nick_name`,`sex`) 
-VALUES ('2','1','songanqi','654321','宋安琪',1);
-INSERT INTO `user` (`id`,`group_id`,`account`,`pwd`,`nick_name`,`sex`) 
-VALUES ('3','2','test','123456','测试账号',1);
+VALUES ('1','工资',0);
+INSERT INTO `category` (`id`,`name`,`type`) 
+VALUES ('2','投资',0);
+INSERT INTO `category` (`id`,`name`,`type`) 
+VALUES ('3','餐饮',1);
+INSERT INTO `category` (`id`,`name`,`type`) 
+VALUES ('4','衣服饰品',1);
+INSERT INTO `category` (`id`,`name`,`type`) 
+VALUES ('5','居家物业',1);
+INSERT INTO `category` (`id`,`name`,`type`) 
+VALUES ('6','行车交通',1);
+
 
 
 
