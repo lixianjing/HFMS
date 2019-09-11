@@ -166,3 +166,12 @@ INSERT INTO `item` (`id`,`cate_id`, `uid`, `account_id`, `type`,`type_id`, `amou
 VALUES ('1','1','0','现金', '0', "",'1568131425','1568131425');
 
 
+
+
+CREATE TABLE test (
+  _id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  id int(10) unsigned unique NOT NULL,
+  name text ,
+  PRIMARY KEY (_id)
+) COMMENT = '测试表';
+
