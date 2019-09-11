@@ -79,11 +79,11 @@ CREATE TABLE `category` (
 ###操作字段
 ####插入
 INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('1','职业收入',0);
+VALUES ('1','职业',0);
 INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('2','投资收入',0);
+VALUES ('2','投资',0);
 INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('3','其他收入',0);
+VALUES ('3','其他',0);
 
 INSERT INTO `category` (`id`,`name`,`type`) 
 VALUES ('7','日常餐饮',1);
@@ -129,27 +129,58 @@ CREATE TABLE `category_sub` (
 ) COMMENT = '目录子表';
 ###操作字段
 ####插入
+<<<<<<< HEAD
 INSERT INTO category_sub(`id`,`name`,`pid`) 
 VALUES ('1','职业收入',1);
+=======
+INSERT INTO `category_sub` (`id`,`name`,`pid`) 
+VALUES ('1','工资',1);
+INSERT INTO `category_sub` (`id`,`name`,`pid`) 
+VALUES ('2','奖金',1);
+INSERT INTO `category_sub` (`id`,`name`,`pid`) 
+VALUES ('3','股票',2);
+INSERT INTO `category_sub` (`id`,`name`,`pid`) 
+VALUES ('4','基金',2);
+INSERT INTO `category_sub` (`id`,`name`,`pid`) 
+VALUES ('5','其他',3);
+>>>>>>> 971d885beac3ba8134b0e1cce4645984756254bd
 
 
 
 
+<<<<<<< HEAD
 ##消费记录表
+=======
+##消费记录表#################################################
+####建表字段
+>>>>>>> 971d885beac3ba8134b0e1cce4645984756254bd
 CREATE TABLE `item` (
   `_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id` int(10) unsigned unique NOT NULL,
   `cate_id` int(10) unsigned NOT NULL comment '类型id',
   `uid` int(10) unsigned  NOT NULL comment '用户id',
-  `type` int(2) unsigned  zerofill  NOT NULL comment '关联类型 默认为0，0为手动输入，1为文案输入',
-  `type_id` int(10) unsigned   comment '数据记录id',
   `account_id` int(10) unsigned NOT NULL comment '账户id',
-  `amount` float unsigned zerofill NOT NULL comment '价格',
-  `desc` text DEFAULT NULL,
+  `type` int(2) unsigned  default 0 comment '关联类型 默认为0，0为手动输入，1为文案输入',
+  `type_id` int(10) unsigned   comment '数据记录id',
+  `amount` float unsigned default 0 comment '价格',
+  `desc` text ,
   `occur_time` timestamp NOT NULL,
-  `status` int(2) unsigned zerofill  NOT NULL  comment '状态0， 1不可用',
+  `status` int(2) unsigned default 0 comment '状态0， 1不可用',
   `original_id`  int(10) unsigned NOT NULL,
   PRIMARY KEY (`_id`)
 ) COMMENT = '消费记录表';
+####操作字段
+######插入
+INSERT INTO `item` (`id`,`cate_id`, `uid`, `account_id`, `type`,`type_id`, `amount`,`desc`,`occur_time`,`status`,`original_id`) 
+VALUES ('1','1','0','现金', '0', "",'1568131425','1568131425');
 
-insert
+
+
+
+CREATE TABLE test (
+  _id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  id int(10) unsigned unique NOT NULL,
+  name text ,
+  PRIMARY KEY (_id)
+) COMMENT = '测试表';
+
