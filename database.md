@@ -129,49 +129,8 @@ CREATE TABLE `category_sub` (
 ) COMMENT = '目录子表';
 ###操作字段
 ####插入
-INSERT INTO `category` (`id`,`name`,`pid`) 
+INSERT INTO category_sub(`id`,`name`,`pid`) 
 VALUES ('1','职业收入',1);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('2','投资收入',0);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('3','其他收入',0);
-
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('7','日常餐饮',1);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('4','衣服饰品',1);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('5','居家物业',1);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('6','行车交通',1);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('8','交流通信',1);
-
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('9','休闲娱乐',1);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('10','学习进修',1);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('11','人情往来',1);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('12','医疗保健',1);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('13','其他杂项',1);
-
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('14','转账',2);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('15','借出',3);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('16','借入',4);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('17','还出',5);
-INSERT INTO `category` (`id`,`name`,`type`) 
-VALUES ('18','还入',6);
-
-
-
-
 
 
 
