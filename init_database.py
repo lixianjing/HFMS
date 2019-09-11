@@ -1,6 +1,13 @@
 import pymysql
 #链接数据库需要先导入库
 
+def batch_sql(cursor,*sqls):
+	for sql in sqls:
+		try:
+			cursor.execute(sql)
+		except Exception as err:
+			print('sql:',sql,'err:',err)		
+		
 
 def init_db(cursor):
 	print('init_db')
@@ -49,7 +56,7 @@ def create_table(cursor):
   		account varchar(100)   NOT NULL,
   		pwd varchar(100)  NOT NULL,
   		nick_name varchar(200) NOT NULL comment '用户名称',
-    	avatar  text comment '头像路径',
+    	
   		sex int(2) unsigned default 0 comment '性别0男人，1女人',
   		auth int(2) unsigned default 0 comment '权限字段',
     	PRIMARY KEY (_id)
@@ -63,9 +70,9 @@ def create_table(cursor):
   		type int(2) unsigned default 0 comment '0现金，1银行卡，2信用卡，3.虚拟账号，4.投资账户',
   		name varchar(200)   NOT NULL comment '账户名称',
   		balance  float default 0 comment '账户金额',
-  		desc text  comment '账户描述',
-  		create_time long NOT NULL ,
-  		modify_time long  NOT NULL,
+		remark  text comment '备注',
+  		create_time long NOT NULL,
+  		modify_time long NOT NULL,
     	PRIMARY KEY (_id)
 		) COMMENT = '账户表';
 	"""
@@ -97,21 +104,16 @@ def create_table(cursor):
 	   	type int(2) unsigned  default 0 comment '关联类型 默认为0，0为手动输入，1为文案输入',
 	   	type_id int(10) unsigned   comment '数据记录id',
 	   	amount float unsigned default 0 comment '价格',
-	   	desc text ,
-	   	occur_time timestamp NOT NULL,
+	   	remark  text comment '备注',
+	   	occur_time long NOT NULL,
 	   	status int(2) unsigned default 0 comment '状态0， 1不可用',
 	   	original_id  int(10) unsigned NOT NULL,
 	  	PRIMARY KEY (_id)
 		) COMMENT = '消费记录表';
 	"""
 
-	cursor.execute(create_test_sql)
-	cursor.execute(create_user_group_sql)
-	cursor.execute(create_user_sql)
-	cursor.execute(create_account_sql)
-	cursor.execute(create_category_sql)
-	cursor.execute(create_category_sub_sql)
-	cursor.execute(create_record_sql)
+	batch_sql(cursor,create_test_sql,create_user_group_sql,create_user_sql,create_account_sql,create_category_sql,create_category_sub_sql,create_record_sql)
+	
 
 	
 
@@ -122,55 +124,78 @@ def insert_data(cursor):
 		INSERT INTO test (id,name) 
 		VALUES (1,'测试')
 	"""
-	cursor.execute(insert_test_sql)
+	batch_sql(cursor,insert_test_sql)
 
 	###################user_group#####################
 	insert_user_group_sql1="""
-		INSERT INTO `user_group` (`id`,`name`) 
+		INSERT INTO user_group (id,name) 
 		VALUES ('1','李明锋&宋安琪');
 	"""
-	insert_user_group_sql2"""
-		INSERT INTO `user_group` (`id`,`name`) 
+	insert_user_group_sql2="""
+		INSERT INTO user_group (id,name) 
 		VALUES ('2','测试组1');
 	"""
-	insert_user_group_sql3"""
-		INSERT INTO `user_group` (`id`,`name`) 
+	insert_user_group_sql3="""
+		INSERT INTO user_group (id,name) 
 		VALUES ('3','测试组2');
 	"""
 
-	cursor.execute(insert_test_sql1)
-	cursor.execute(insert_test_sql2)
-	cursor.execute(insert_test_sql3)
-
+	batch_sql(cursor,insert_user_group_sql1,insert_user_group_sql2,insert_user_group_sql3)
+	
+	###################user#####################
+	insert_user_sql1="""
+		INSERT INTO `user` (`id`,`group_id`,`account`,`pwd`,`nick_name`,`sex`) 
+		VALUES ('1','1','limingfeng','123456','李明锋',0);
+	"""
+	insert_user_sql2="""
+		INSERT INTO `user` (`id`,`group_id`,`account`,`pwd`,`nick_name`,`sex`) 
+		VALUES ('2','1','songanqi','123456','宋安琪',1);
+	"""
+	insert_user_sql3="""
+		INSERT INTO `user` (`id`,`group_id`,`account`,`pwd`,`nick_name`,`sex`) 
+		VALUES ('3','2','test','123456','测试',0);
+	"""
+	batch_sql(cursor,insert_user_sql1,insert_user_sql2,insert_user_sql3)
 	
 def show_data(cursor):
 	print('show_data')
+	###################test#####################
 	show_test_sql="""
 		SELECT * FROM test;
 	"""
 	cursor.execute(show_test_sql)	
-	results = cursor.fetchall()
-	print("id","name")  
-	#遍历结果  
-	for row in results :  
-		id = row[1]  
-		name = row[2]
-		print(id,name)
+	print("data:",cursor.fetchone())  
 
+	###################user_group#####################
+	show_user_group_sql="""
+		SELECT * FROM user_group;
+	"""
+	cursor.execute(show_user_group_sql)	
+	print("data:",cursor.fetchone())  
+	
+	###################user_group#####################
+	show_user_sql="""
+		SELECT * FROM user;
+	"""
+	cursor.execute(show_user_sql)	
+	print("data:",cursor.fetchone())  
+	
+	
+	
+	
+		
 host='149.248.5.135'
 port=3306
 user='lucien'
 pd='shui'
 database_name='hfms'
+charset='utf8'
 
 
 #python3中不支持mysqldb
-conn=pymysql.connect(host=host,user=user,passwd=pd,db=database_name,port=port,charset='utf8')
-#这里要注意port 后要跟随数字，不要写出成port="3306"
-#charset 中的utf8 写成“utf-8”会报错
+conn=pymysql.connect(host=host,user=user,passwd=pd,db=database_name,port=port,charset=charset)
 print('init db')
 cursor=conn.cursor() #控制光标
-# cursor.execute(sql语句)
 print('cursor:',cursor)
 init_db(cursor)
 clear_table(cursor)
