@@ -65,18 +65,113 @@ def insert_data(cursor):
 	"""
 	batch_sql(cursor,insert_user_sql1,insert_user_sql2,insert_user_sql3)
 
-	###################account#####################
 
-	insert_account_sql1="""
-		INSERT INTO `account` (`id`,`uid`, `type`, `name`, `balance`,`remark`, `create_time`,`modify_time`) 
-		VALUES ('1','1','0','现金', '0', "",'1568131425','1568131425');
+
+def insert_data1(cursor):
+    ###################account#####################
+    
+    insert_account_sql1="""
+        INSERT INTO `account` (`id`,`uid`, `type`, `name`, `balance`,`remark`, `create_time`,`modify_time`)
+        VALUES ('1','1','0','现金', '0', "",'1568131425','1568131425');
     """
     insert_account_sql2="""
-    	pppp
+        INSERT INTO `account` (`id`,`uid`, `type`, `name`, `balance`,`remark`, `create_time`,`modify_time`)
+        VALUES ('2','1','1','银行卡1026', '0', "",'1568131425','1568131425');
     """
-    print("test:",insert_account_sql2)
+    insert_account_sql3="""
+        INSERT INTO `account` (`id`,`uid`, `type`, `name`, `balance`,`remark`, `create_time`,`modify_time`)
+        VALUES ('3','1','2','信用卡7680', '0', "",'1568131425','1568131425');
+    """
+    insert_account_sql4="""
+        INSERT INTO `account` (`id`,`uid`, `type`, `name`, `balance`,`remark`, `create_time`,`modify_time`)
+        VALUES ('4','1','3','微信', '0', "",'1568131425','1568131425');
+    """
+    insert_account_sql5="""
+        INSERT INTO `account` (`id`,`uid`, `type`, `name`, `balance`,`remark`, `create_time`,`modify_time`)
+        VALUES ('5','1','3','支付宝', '0', "",'1568131425','1568131425');
+    """
+    insert_account_sql6="""
+        INSERT INTO `account` (`id`,`uid`, `type`, `name`, `balance`,`remark`, `create_time`,`modify_time`)
+        VALUES ('6','1','4','蚂蚁财富', '0', "",'1568131425','1568131425');
+    """
+    batch_sql(cursor,insert_account_sql1,insert_account_sql2,insert_account_sql3,insert_account_sql4,insert_account_sql5,insert_account_sql6)
 
-	# batch_sql(cursor,insert_account_sql1,insert_account_sql2)
+    ###################category#####################
+
+    insert_category_sql1="""
+        INSERT INTO `category` (`id`,`name`,`type`)
+        VALUES ('1','职业',0);
+    """
+    insert_category_sql2="""
+        INSERT INTO `category` (`id`,`name`,`type`)
+        VALUES ('2','投资',0);
+    """
+    insert_category_sql3="""
+        INSERT INTO `category` (`id`,`name`,`type`)
+        VALUES ('3','其他',0);
+    """
+    insert_category_sql4="""
+        INSERT INTO `category` (`id`,`name`,`type`)
+        VALUES ('7','日常餐饮',1);
+    """
+    insert_category_sql5="""
+        INSERT INTO `category` (`id`,`name`,`type`)
+        VALUES ('4','衣服饰品',1);
+    """
+    insert_category_sql6="""
+        INSERT INTO `category` (`id`,`name`,`type`)
+        VALUES ('5','居家物业',1);
+    """
+    batch_sql(cursor,insert_category_sql1,insert_category_sql2,insert_category_sql3,insert_category_sql4,insert_category_sql5,insert_category_sql6)
+
+    ###################category_sub#####################
+
+    insert_category_sub_sql1="""
+        INSERT INTO `category_sub` (`id`,`name`,`pid`)
+        VALUES ('1','工资',1);
+    """
+    insert_category_sub_sql2="""
+        INSERT INTO `category_sub` (`id`,`name`,`pid`)
+        VALUES ('2','奖金',1);
+    """
+    insert_category_sub_sql3="""
+        INSERT INTO `category_sub` (`id`,`name`,`pid`)
+        VALUES ('3','股票',2);
+    """
+    insert_category_sub_sql4="""
+        INSERT INTO `category_sub` (`id`,`name`,`pid`)
+        VALUES ('4','基金',2);
+    """
+    insert_category_sub_sql5="""
+        INSERT INTO `category_sub` (`id`,`name`,`pid`)
+        VALUES ('5','平账',3);
+    """
+    insert_category_sub_sql6="""
+        INSERT INTO `category_sub` (`id`,`name`,`pid`)
+        VALUES ('6','其他',3);
+    """
+    batch_sql(cursor,insert_category_sub_sql1,insert_category_sub_sql2,insert_category_sub_sql3,insert_category_sub_sql4,insert_category_sub_sql5,insert_category_sub_sql6)
+
+
+    insert_category_sub_sql1="""
+        INSERT INTO `category_sub` (`id`,`name`,`pid`)
+        VALUES ('7','餐饮',7);
+    """
+    insert_category_sub_sql2="""
+        INSERT INTO `category_sub` (`id`,`name`,`pid`)
+        VALUES ('8','水果零食',7);
+    """
+    insert_category_sub_sql3="""
+        INSERT INTO `category_sub` (`id`,`name`,`pid`)
+        VALUES ('9','衣服',8);
+    """
+    insert_category_sub_sql4="""
+        INSERT INTO `category_sub` (`id`,`name`,`pid`)
+        VALUES ('10','包包饰品',8);
+    """
+
+    batch_sql(cursor,insert_category_sub_sql1,insert_category_sub_sql2,insert_category_sub_sql3,insert_category_sub_sql4)
+
 	
 def show_data(cursor):
 	print('show_data')
@@ -149,6 +244,7 @@ print('cursor:',cursor)
 init_db(cursor)
 clear_data(cursor)
 insert_data(cursor)
+insert_data1(cursor)
 show_data(cursor)
 print('exit')
 conn.commit()#提交事务
