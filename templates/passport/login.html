@@ -1,0 +1,13 @@
+{%extends "base/base.html" %}
+
+{% block mainbody %}
+<div class="text-center">
+    <h3>{{msg_tips}}</h3>
+    {% csrf_token %}
+    <form action="../result/" method="post">
+        用户名：<input type="text" name="username"> <br>
+        密码：<input type="password" name="password"> <br><br>
+        <input type="submit" value="登录">
+    </form>
+</div>
+{% endblock %}
