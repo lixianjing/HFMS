@@ -1,5 +1,6 @@
 import pymysql
 #链接数据库需要先导入库
+from main.settings import DATABASES
 
 def batch_sql(cursor,*sqls):
 	for sql in sqls:
@@ -56,7 +57,8 @@ def create_table(cursor):
   		account varchar(100)   NOT NULL,
   		pwd varchar(100)  NOT NULL,
   		nick_name varchar(200) NOT NULL comment '用户名称',
-    	
+    	avatar  text comment '头像路径',
+		phone varchar(20),
   		sex int(2) unsigned default 0 comment '性别0男人，1女人',
   		auth int(2) unsigned default 0 comment '权限字段',
     	PRIMARY KEY (_id)
@@ -116,6 +118,7 @@ def create_table(cursor):
 
 	
 		
+
 host='149.248.5.135'
 port=3306
 user='lucien'
@@ -123,9 +126,13 @@ pd='shui'
 database_name='hfms'
 charset='utf8'
 
+host_local='127.0.0.1'
+user_local='root'
+pd_local='shui'
 
 #python3中不支持mysqldb
-conn=pymysql.connect(host=host,user=user,passwd=pd,db=database_name,port=port,charset=charset)
+#conn=pymysql.connect(host=host,user=user,passwd=pd,db=database_name,port=port,charset=charset)
+conn=pymysql.connect(host=host_local,user=user_local,passwd=pd_local,db=database_name,port=port,charset=charset)
 print('init db')
 cursor=conn.cursor() #控制光标
 print('cursor:',cursor)

@@ -1,13 +1,16 @@
+import hashlib
+
 import pymysql
 #链接数据库需要先导入库
+from main.utils import get_md5
+from main.settings import DATABASES
 
 def batch_sql(cursor,*sqls):
 	for sql in sqls:
 		try:
 			cursor.execute(sql)
 		except Exception as err:
-			print('sql:',sql,'err:',err)		
-		
+			print('sql:',sql,'err:',err)
 
 def init_db(cursor):
 	print('init_db')
@@ -53,15 +56,15 @@ def insert_data(cursor):
 	###################user#####################
 	insert_user_sql1="""
 		INSERT INTO `user` (`id`,`group_id`,`account`,`pwd`,`nick_name`,`sex`) 
-		VALUES ('1','1','limingfeng','123456','李明锋',0);
+		VALUES ('1','1','limingfeng','"""+get_md5('li1026ones')+"""','李明锋',0);
 	"""
 	insert_user_sql2="""
 		INSERT INTO `user` (`id`,`group_id`,`account`,`pwd`,`nick_name`,`sex`) 
-		VALUES ('2','1','songanqi','123456','宋安琪',1);
+		VALUES ('2','1','songanqi','"""+get_md5('123456')+"""','宋安琪',1);
 	"""
 	insert_user_sql3="""
 		INSERT INTO `user` (`id`,`group_id`,`account`,`pwd`,`nick_name`,`sex`) 
-		VALUES ('3','2','test','123456','测试',0);
+		VALUES ('3','2','test','"""+get_md5('test')+"""','测试',0);
 	"""
 	batch_sql(cursor,insert_user_sql1,insert_user_sql2,insert_user_sql3)
 
@@ -223,21 +226,11 @@ def show_data(cursor):
 	"""
 	cursor.execute(show_record_sql)	
 	print("data:",cursor.fetchone())  
-	
-	
-	
-	
-		
-host='149.248.5.135'
-port=3306
-user='lucien'
-pd='shui'
-database_name='hfms'
-charset='utf8'
+
 
 
 #python3中不支持mysqldb
-conn=pymysql.connect(host=host,user=user,passwd=pd,db=database_name,port=port,charset=charset)
+conn=pymysql.connect(host=DATABASES['default']['HOST'],user=DATABASES['default']['USER'],passwd=DATABASES['default']['PASSWORD'],db=DATABASES['default']['NAME'],port=int(DATABASES['default']['PORT']),charset=DATABASES['default']['CHARSET'])
 print('init db')
 cursor=conn.cursor() #控制光标
 print('cursor:',cursor)
