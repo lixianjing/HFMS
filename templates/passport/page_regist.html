@@ -1,0 +1,21 @@
+{%extends "base/base.html" %}
+
+{% block mainbody %}
+<div class="text-center">
+    <h3>{{msg_tips}}</h3>
+    {% csrf_token %}
+    <form action="../action_regist/" method="post">
+        用户名：<input type="text" name="id_username" autocomplete='off'> <br>
+        密码：<input type="password" name="id_password" autocomplete='new-password'> <br>
+        昵称：<input type="text" name="id_nick" autocomplete='off'> <br>
+        电话：<input type="text" name="id_phone" autocomplete='off'> <br>
+        性别：<input type="radio" name="id_sex" value="0" checked="true"/> Male
+        <input type="radio" name="id_sex" value="1"/> Female <br>
+        用户组： <br>
+        {% for group in groups %}
+        <input type="radio" name="id_group" value="{{ group.id }}"/> {{ group.name }} <br>
+        {% endfor %}
+        <input type="submit" value="注册">
+    </form>
+</div>
+{% endblock %}

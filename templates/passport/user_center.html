@@ -4,5 +4,21 @@
 <div class="text-center">
     <h3>{{msg_tips}}</h3>
 
+    用户名：{{ user.account }} <br>
+    昵称：{{ user.nick_name }} <br>
+    电话：{{ user.phone }} <br>
+    性别：{% ifequal user.sex 1 %}
+    Female
+    {% else %}
+    Male
+    {% endifequal %}<br>
+
+
+    <!--    用户组： <br>-->
+    <!--    {% for group in groups %}-->
+    <!--    <input type="radio" name="id_group" value="{{ group.id }}"/> {{ group.name }} <br>-->
+    <!--    {% endfor %}-->
+    <!--    <input type="submit" value="注册">-->
+
 </div>
 {% endblock %}
